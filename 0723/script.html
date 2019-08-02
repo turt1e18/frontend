@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, inital-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <title>ex for script</title>
+    <script>
+      $(function(){
+        $(".wrap_1").css("border","1px solid orange");
+        $(".wrap_1 p").css("background-color","yellow");
+        $(".active").next("p").css("background-color","aqua");
+        $("input[type=text]").css({"background-color":"orange"});
+        $("wrap_1").eq(1).removeClass("active");
+        $(".wrap_1").append("<p>yabal</p>");
+        });
+    </script>
+  </head>
+    <body>
+      <div class="wrap_1">
+        <p>text</p>
+        <p class = "active">text2</p>
+        <p><a href="#">네이버</a></p>
+        <p>
+          <input type="text" name="" value="Hello">
+        </p>
+      </div>
+      <div class="wrap_2">
+
+      </div>
+  </body>
+</html>

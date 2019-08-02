@@ -1,0 +1,80 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+body{
+  min-height: 100vh;
+  background-image: linear-gradient(100deg,#12CBC4,#1B1464);
+}
+.login h1{
+  color: white;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-size: 40px;
+}
+.login{
+  width: 450px;
+  padding: 80px 40px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background: #5352ed;
+  text-align: center;
+  border-radius: 20px;
+}
+input::placeholder{
+  color: #f1f2f6;
+}
+.login input[type="text"], .login input[type = "password"]{
+  border: 1;
+  background: none;
+  color: #FFFFFF;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px soild #ff4757;
+  padding: 14px 10px;
+  width: 200px;
+  outline: none;
+  color: white;
+  border-radius: 25px;
+  transition: 0.25s;
+}
+.login input[type="button"]{
+  border: 1;
+  background: none;
+  display: block;
+  margin: 20px auto;
+  text-align: center;
+  border: 2px soild #0be881;
+  padding: 14px 40px;
+  width: 150px;
+  outline: none;
+  color: white;
+  border-radius: 24px;
+  transition:  0.25s;
+  cursor: pointer;
+  background-color: #70a1ff;
+}
+.login input[type="button"]:hover{
+  box-shadow: 200px 0 0 0 rgba(0,0,0,0.25) inset, -200px 0 0 0 rgba(0,0,0,0.25) inset;
+  transition: 0.9s;
+}
+.login input[type="text"]:focus, .login input[type = "password"]:focus{
+  width: 280px;
+  border-color:#ff4757;
+}
+.signup{
+  color: white;
+  font-style: normal;
+  font-size: 95%;
+}
+a{
+  text-decoration: none;
+  color:#ff4757;
+}
+a:hover{
+  color:#ffa502;
+}

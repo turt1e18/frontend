@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>User Sign up</title>
+    <link rel="stylesheet" href="style_1.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+    $(function () {
+            $('.phone').keydown(function (event) {
+             var key = event.charCode || event.keyCode || 0;
+             $text = $(this);
+             if (key !== 8 && key !== 9) {
+                 if ($text.val().length === 3) {
+                     $text.val($text.val() + '-');
+                 }
+                 if ($text.val().length === 8) {
+                     $text.val($text.val() + '-');
+                 }
+             }
+             return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+         })
+       });
+    });
+    </script>
+  </head>
+  <body>
+    <form class="sginup" action="login.html" method="post">
+        <input type="text"class="id" placeholder="ID">
+        <input type="password" class="pw" placeholder="Password">
+        <input type="email" class="email" placeholder="E-Mail">
+        <input type="text" maxlength="13" class="phone" placeholder="Phone Number"><br>
+        <button type="button" class="check" id = "check" name="button" placeholder="Check">Check</button>
+        <script>
+          $('#check').click(function(){
+            var id = document.getElementsByClassName('id');
+            var pw = document.getElementsByClassName('pw');
+            var email = document.getElementsByClassName('email');
+            var phone = document.getElementsByClassName('phone');
+
+            create(id,pw,email,phone,function(err,res){
+                window.replace('signup.html')
+            })
+          })
+          function create(id,pw,email,phone,callback){
+            return new Promise((resovle, reject) => {
+              $.ajax({
+                url:'signup.html',
+                method:'POST',
+                data:{
+                  id:id,
+                  pw:pw,
+                  email:email,
+                  phone:phone
+                },
+                dataType:'text',
+                success:(res)=>{
+                  callback(false, res);
+                },
+                error:(err)=>{
+                  callback(err,false);
+                }
+              });
+            });
+          }
+        </script>
+    </form>
+  </body>
+</html>

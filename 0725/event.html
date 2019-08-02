@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>event</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script>
+      $(function(){
+        $(".btn1 a").on("click",function() {
+          var ts = $(this);
+          $(".btn1").next("ul").filter(":visible").hide();
+          ts.parent().next().show();
+          return false;
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <p class = "btn1"><a href="#">event 1</a></p>
+    <ul style="display:none;">
+      <li>list 1</li>
+      <li>list 2</li>
+      <li>list 3</li>
+    </ul>
+    <p class="btn1"><a href="#">event 2</a></p>
+    <ul style="display:none;">
+        <li>list 4</li>
+        <li>list 5</li>
+        <li>list 6</li>
+    </ul>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>login</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script>
+      $(document).ready(function () {
+   $(function () {
+            $('#phone').keydown(function (event) {
+             var key = event.charCode || event.keyCode || 0;
+             $text = $(this);
+             if (key !== 8 && key !== 9) {
+                 if ($text.val().length === 3) {
+                     $text.val($text.val() + '-');
+                 }
+                 if ($text.val().length === 8) {
+                     $text.val($text.val() + '-');
+                 }
+             }
+             return (key == 8 || key == 9 || key == 46 || (key >= 48 && key <= 57) || (key >= 96 && key <= 105));
+         })
+   });
+});
+    </script>
+  </head>
+    <form class="login" action="index.html" method="post">
+      <h1>Tutee Login</h1>
+      <div class="inputbox" >
+        <input type="text" maxlength="13"id="phone" placeholder="Phone Number">
+        <input type="password" class="pw" placeholder="Password">
+        <div class="signup">
+            <small>Don't U have account? <a href="signup.html">Sign up</a></small>
+        </div>
+        <input type="button" name="submit" value="Login" onclick="login.html">
+      </div>
+    </form>
+  </body>
+</html>

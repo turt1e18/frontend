@@ -1,0 +1,38 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.title{
+  grid-area: title;
+}
+.header{
+  grid-area: header;
+}
+.sidebar{
+  grid-area: sidebar;
+}
+.content{
+  grid-area: content;
+  justify-content:
+}
+.footer{
+  grid-area: footer;
+}
+.grid div:nth-child(even){
+  margin: 1px;
+  background-color: #EA2027;
+}
+.grid div:nth-child(odd){
+  margin: 1px;
+  background-color: #0652DD;
+}
+.grid{
+  display: grid;
+  margin: 1px;
+  grid-template-columns: 1fr 500px 500px 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-areas: ". title title ."
+  ". header header ."
+  ". sidebar content ."
+  ". footer footer .";
+}
