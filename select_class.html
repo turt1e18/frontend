@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <title>강의 조회</title>
+  <script src="../static/vendor/jquery/jquery.min.js"></script>
+  <script src="../static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Core plugin JavaScript-->
+  <script src="../static/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+  <!-- Custom scripts for all pages-->
+  <script src="../static/js/sb-admin-2.min.js"></script>
+
+  <!-- Page level plugins -->
+  <script src="../static/vendor/datatables/jquery.dataTables.min.js"></script>
+  <script src="../static/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+  <!-- Page level custom scripts -->
+  <script src="../static/js/demo/datatables-demo.js"></script>
+  <!-- Bootstrap core CSS -->
+  <link href="../static/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom styles for this template -->
+  <link href="../static/css/modern-business.css" rel="stylesheet">
+  <!-- Custom styles for this page -->
+  <link href="../static/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">출석지킴이</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="http://52.231.10.217/login">로그인</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://52.231.10.217/tuteeSignup">튜티 회원가입(학생)</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://52.231.10.217/tutorSignup">튜터 회원가입(강의자)</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://52.231.10.217/tutorMypage">마이페이지</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://52.231.10.217/lectureList">강의 조회</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- Page Content -->
+  <div class="container">
+
+    <h1 class="my-4">강의 조회</h1>
+    <!-- Marketing Icons Section -->
+    <div class="row">
+      <div class="col-lg-11 mb-4" style="margin-left:3%;">
+        <div class="card h-100">
+          <h4 class="card-header">조회</h4>
+          <div class="card-body">
+            <div class="article_search">
+              <select name="search_box" class="search_box">
+                <option value="기준선택" selected="selected">강의명</option>
+                <option value="강사명">강사명</option>
+                <option value="파인애플">강의 코드</option>
+              </select>
+              <input type="text" class="article_search_field" name="search" value="" onkeypress="if (event.keyCode == 13) { try{window.location.href='/search/' + document.getElementsByName('search')[0].value.replaceAll('%', '%25');document.getElementsByName('search')[0].value = ''; return false;}catch(e){} }" id="article_search" />
+              <input type="submit" class="article_search_submit" value="검색" onclick="try{window.location.href='/search/' + document.getElementsByName('search')[0].value.replaceAll('%', '%25');document.getElementsByName('search')[0].value = ''; return false;}catch(e){}" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-11 mb-4" style="margin-left:3%;">
+        <div class="card h-100">
+          <h4 class="card-header">조회 결과</h4>
+          <div class="card-body">
+            <div class="table-responsive">
+              <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4" style="width:95%;margin-left:22px;">
+                <table class="student_list" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                  <th class="sorting_asc" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 177px;">
+                    번호
+                  </th>
+                  <th scope="row">강의명</th>
+                  <th scope="row">강사명</th>
+                  <th scope="row">강의 요일</th>
+                  <th scope="row">강의 시간</th>
+                  <th scope="row">강의 장소</th>
+                </thead>
+                <tbody name=start>
+                </tbody>
+                  </table>
+              </div>
+            </div>
+            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">회원가입</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body" id="orderDetails">
+                    강의명 :<br><br>
+                    강사명 :<br><br>
+                    강의 요일 :<br><br>
+                    강의 시간 :<br><br>
+                    강의 장소 :<br><br>
+                    강의 설명 :<br><br>
+                    지각 참여율 기준 :<br><br>
+                    결석 참여율 기준 :
+                  </div>
+                  <div class="modal-footer">
+                    <a class="btn btn-danger" href="#">취소</a>
+                    <a class="btn btn-primary" href="http://52.231.10.217/requestLecture">신청</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- /.row -->
+    <script>
+    $('#dataTable').DataTable( {
+     ajax: {
+        url: '../data/myData.json',
+        dataSrc: 'data'
+          },
+        columns: [{data:'class_id'},
+                  {data:'class_name'},
+                  {data:'tutor_id'},
+                  {data:'class_date'},
+                  {data:'class_time'},
+                  {data:'class_room'}
+                ]
+      });
+    </script>
+  </div>
+  <!-- /.container -->
+
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Team The 출석지킴이™</p>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <!-- Bootstrap core JavaScript -->
+</body>
+
+</html>
