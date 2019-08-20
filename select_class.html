@@ -70,12 +70,12 @@
           <div class="card-body">
             <div class="article_search">
               <select name="search_box" class="search_box">
-                <option value="기준선택" selected="selected">강의명</option>
-                <option value="강사명">강사명</option>
-                <option value="파인애플">강의 코드</option>
+                <option value="class_name" selected="selected">강의명</option>
+                <option value="tutor_name">강사명</option>
+                <option value="class_id">강의 코드</option>
               </select>
               <input type="text" class="article_search_field" name="search" value="" onkeypress="if (event.keyCode == 13) { try{window.location.href='/search/' + document.getElementsByName('search')[0].value.replaceAll('%', '%25');document.getElementsByName('search')[0].value = ''; return false;}catch(e){} }" id="article_search" />
-              <input type="submit" class="article_search_submit" value="검색" onclick="try{window.location.href='/search/' + document.getElementsByName('search')[0].value.replaceAll('%', '%25');document.getElementsByName('search')[0].value = ''; return false;}catch(e){}" />
+              <input type="button" id="search_class" class="article_search_submit" value="검색">
             </div>
           </div>
         </div>
@@ -98,40 +98,62 @@
                   <th scope="row">강의 장소</th>
                 </thead>
                 <tbody name=start>
+                  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">강의 </h5>
+                          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <!-- data-toggle="modal" data-target="#logoutModal" -->
+                        <div class="modal-body" id="orderDetails">
+
+                        </div>
+                        <div class="modal-footer">
+                          <a class="btn btn-danger" href="#">취소</a>
+                          <input type=submit class="btn btn-primary" href="http://52.231.10.217/requestLecture"></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </tbody>
                   </table>
-              </div>
-            </div>
-            <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">회원가입</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">×</span>
-                    </button>
-                  </div>
-                  <div class="modal-body" id="orderDetails">
-                    강의명 :<br><br>
-                    강사명 :<br><br>
-                    강의 요일 :<br><br>
-                    강의 시간 :<br><br>
-                    강의 장소 :<br><br>
-                    강의 설명 :<br><br>
-                    지각 참여율 기준 :<br><br>
-                    결석 참여율 기준 :
-                  </div>
-                  <div class="modal-footer">
-                    <a class="btn btn-danger" href="#">취소</a>
-                    <a class="btn btn-primary" href="http://52.231.10.217/requestLecture">신청</a>
-                  </div>
-                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     <!-- /.row -->
+    <!--http://52.231.10.217/selectLecture-->
+ <script>
+    $(document).ready(function(){
+      $("tbody tr").click(function(){
+        $('#logoutModal').modal("show");
+        $.ajax({
+          dataType:'text',
+          method:'POST',
+          url:'../data/myData.json',
+          data:{
+            class_id :class_id
+          }
+        })
+        .done(function(json){
+          $("#orderDetails").append(
+          '<p> 강의명 : ' + class_name +'</p><br><br>'
+          +'<p> 강사명 : ' + tutor_id +'</p><br><br>'
+          +'<p> 강의 요일 : ' + class_date +'</p><br><br>'
+          +'<p> 강의 시간 : ' +class_time +'</p><br><br>'
+          +'<p> 강의 장소 : ' + class_room +'</p><br><br>'
+          +'<p> 강의 설명 : ' + class_describe +'</p><br><br>'
+          +'<p> 강의 지각 기준 : ' + limit_entry +'%</p><br><br>'
+          +'<p> 강의 결석 기준 : ' + limit_fail +'%</p><br><br>'
+          );
+        });
+          })
+      });
+    </script>
     <script>
     $('#dataTable').DataTable( {
      ajax: {
@@ -149,7 +171,17 @@
     </script>
   </div>
   <!-- /.container -->
-
+<!--
+class_name':row[0],
+'tutor_id':row[1],
+ 'class_date':row[2],
+ 'class_time':row[3],
+  'class_room':row[4],
+   'class_describe':row[5],
+   'limit_entry':row[6],
+   'limit_late':row[7],
+    'limit_fail':row[8]
+-->
   <!-- Footer -->
   <footer class="py-5 bg-dark">
     <div class="container">
