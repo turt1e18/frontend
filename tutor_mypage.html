@@ -34,8 +34,7 @@
   <script src="../static/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <!--<script src="../static/js/demo/chart-area-demo.js"></script> -->
-  <script src="../static/js/demo/chart-pie-demo.js"></script>
+
   <!-- Custom styles for this template-->
 
 </head>
@@ -302,133 +301,111 @@
                           tutee_id : 1
                         },
                         success : function(json){
-                          var ctx = document.getElementById("myAreaChart");
-                          var myLineChart = new Chart(ctx, {
-                                type: 'line',
-                                labels: [`${json[0]['time']}`],
-                                datasets: [{
-                                label: "출석률",
-                                lineTension: 0.3,
-                                backgroundColor: "rgba(78, 115, 223, 0.05)",
-                                borderColor: "rgba(78, 115, 223, 1)",
-                                pointRadius: 2,
-                                pointBackgroundColor: "rgba(78, 115, 223, 1)",
-                                pointBorderColor: "rgba(78, 115, 223, 1)",
-                                pointHoverRadius: 2,
-                                pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
-                                pointHoverBorderColor: "rgba(78, 115, 223, 1)",
-                                pointHitRadius: 10,
-                                pointBorderWidth: 2,
-                                data: [`${json[0]['data']}`],
-                              }],
-                            },
-                            options: {
-                              maintainAspectRatio: false,
-                              layout: {
-                                padding: {
-                                  left: 10,
-                                  right: 25,
-                                  top: 25,
-                                  bottom: 0
-                                }
-                              },
-                              scales: {
-                                xAxes: [{
-                                  time: {
-                                    unit: 'time'
-                                  },
-                                  gridLines: {
-                                    display: false,
-                                    drawBorder: false
-                                  },
-                                  ticks: {
-                                    minTicksLimit: 5,
-                                    maxTicksLimit: 14
-                                  }
-                                }],
-                                yAxes: [{
-                                  ticks: {
-                                    maxTicksLimit: 3,
-                                    paddingBottem:10,
-                                    // Include a dollar sign in the ticks
-                                    callback: function(value, index, values) {
-                                      if(value == 0)
-                                        return '시작!';
-                                      else if (value == 1)
-                                        return '부재중';
-                                      else if(value == 2)
-                                        return '자리있음';
-                                    }
-                                  },
-
-                                  gridLines: {
-                                    color: "rgb(234, 236, 244)",
-                                    zeroLineColor: "rgb(234, 236, 244)",
-                                    drawBorder: false,
-                                    borderDash: [2],
-                                    zeroLineBorderDash: [2]
-                                  }
-                                }],
-                              },
-                              legend: {
-                                display: false
-                              },
-                              tooltips: {
-                                backgroundColor: "rgb(255,255,255)",
-                                bodyFontColor: "#858796",
-                                titleMarginBottom: 10,
-                                titleFontColor: '#6e707e',
-                                titleFontSize: 14,
-                                borderColor: '#dddfeb',
-                                borderWidth: 1,
-                                xPadding: 15,
-                                yPadding: 15,
-                                displayColors: false,
-                                intersect: false,
-                                mode: 'index',
-                                caretPadding: 10,
-                                callbacks: {
-                                  label: function(tooltipItem, chart) {
-                                    var datasetLabel = chart.datasets[tooltipItem.datasetIndex].label || '';
-                                    return datasetLabel + ':' + number_format(tooltipItem.yLabel.return) + '';
-                                  }
-                                }
-                              }
-                            }
-                          });
-                        })
-                      })
-                        }
-                        });
-                      })
-                    })
+                         var ctx = document.getElementById("myAreaChart");
+       var time_length = Object.keys(json['time']).length;
+       var data_length = Object.keys(json['data']).length;
+       var times = [];
+       var datas = [];
+       for(var i=0; i < time_length; i++) {
+         times.push(`${json['time'][i]}`);
+         datas.push(`${json['data'][i]}`);
+         }
+                         var myLineChart = new Chart(ctx, {
+                               type: 'line',
+                               data:{
+                               labels: times,
+                               datasets: [{
+                               label: "출석률",
+                               lineTension: 0.3,
+                               backgroundColor: "rgba(78, 115, 223, 0.05)",
+                               borderColor: "rgba(78, 115, 223, 1)",
+                               pointRadius: 2,
+                               pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                               pointBorderColor: "rgba(78, 115, 223, 1)",
+                               pointHoverRadius: 2,
+                               pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                               pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                               pointHitRadius: 10,
+                               pointBorderWidth: 2,
+                               data: datas,
+                             }],
+                           },
+                           options: {
+                             maintainAspectRatio: false,
+                             layout: {
+                               padding: {
+                                 left: 10,
+                                 right: 25,
+                                 top: 25,
+                                 bottom: 0
+                               }
+                             },
+                             scales: {
+                               xAxes: [{
+                                 time: {
+                                   unit: 'time'
+                                 },
+                                 gridLines: {
+                                   display: false,
+                                   drawBorder: false
+                                 },
+                                 ticks: {
+                                   minTicksLimit: 5,
+                                   maxTicksLimit: 14
+                                 }
+                               }],
+                               yAxes: [{
+                                 ticks: {
+                                   maxTicksLimit: 3,
+                                   paddingBottem:10,
+                                   // Include a dollar sign in the ticks
+                                   callback: function(value, index, values) {
+                                     if(value == 0)
+                                       return '시작!';
+                                     else if (value == 1)
+                                       return '부재중';
+                                     else if(value == 2)
+                                       return '자리있음';
+                                   }
+                                 },
+                                 gridLines: {
+                                   color: "rgb(234, 236, 244)",
+                                   zeroLineColor: "rgb(234, 236, 244)",
+                                   drawBorder: false,
+                                   borderDash: [2],
+                                   zeroLineBorderDash: [2]
+                                 }
+                               }],
+                             },
+                             legend: {
+                               display: false
+                             },
+                             tooltips: {
+                               backgroundColor: "rgb(255,255,255)",
+                               bodyFontColor: "#858796",
+                               titleMarginBottom: 10,
+                               titleFontColor: '#6e707e',
+                               titleFontSize: 14,
+                               borderColor: '#dddfeb',
+                               borderWidth: 1,
+                               xPadding: 15,
+                               yPadding: 15,
+                               displayColors: false,
+                               intersect: false,
+                               mode: 'index',
+                               caretPadding: 10,
+                             }
+                           }
+                         });
+                       }
+                     });
+                   })
                     </script>
                     <canvas id="myAreaChart"></canvas>
                   </div>
                 </div>
               </div>
             </div>
-            <script>
-              $(function(){
-                $.ajax({
-                  url:'http://1.1.1.1/',
-                  dataType:'json',
-                  method:'POST',
-                  data:{
-                    class_id:class_id,
-                    tutee_id:tutee_id
-                  }
-                })
-                .done(function(json){
-                  $(function(json){
-                    var num = Object.keys(json).length;
-                    alert(num+" 개" + `${json[student_graph][0]}`);
-                  })
-                }
-
-                );
-              })
-            </script>
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
@@ -513,6 +490,57 @@
                 <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-pie pt-4 pb-2">
+                    <script>
+                    Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+                    Chart.defaults.global.defaultFontColor = '#858796';
+
+                    // Pie Chart Example
+                    $(function(){
+                      $.ajax({
+                        url:'data.json',
+                        method:'GET',
+                        dataType:'json',
+                        data:{class_id:1},
+                        })
+                        .done(function(){
+                          var length = Object.keys(json['data']).length;
+                          var datas = [];
+                          for(var num = 0; num < length; num++){
+                             datas.push(`${json['data'][num]}`);
+                          }
+                        var ctx = document.getElementById("myPieChart");
+                        var myPieChart = new Chart(ctx, {
+                          type: 'doughnut',
+                          data: {
+                            labels: ["출석", "지각", "결석"],
+                            datasets: [{
+                              data: datas,
+                              backgroundColor: ['#1cc88a', '#eccc68', '#ff6b81'],
+                              hoverBackgroundColor: ['#17a673', '#ffa502', '#ff4757'],
+                              hoverBorderColor: "rgba(234, 236, 244, 1)",
+                            }],
+                          },
+                          options: {
+                            maintainAspectRatio: false,
+                            tooltips: {
+                              backgroundColor: "rgb(255,255,255)",
+                              bodyFontColor: "#858796",
+                              borderColor: '#dddfeb',
+                              borderWidth: 1,
+                              xPadding: 15,
+                              yPadding: 15,
+                              displayColors: false,
+                              caretPadding: 10,
+                            },
+                            legend: {
+                              display: false
+                            },
+                            cutoutPercentage: 80,
+                          },
+                        });
+                      });
+                    })
+                    </script>
                     <canvas id="myPieChart"></canvas>
                   </div>
                   <div class="mt-4 text-center small">
@@ -640,8 +668,7 @@
   <script src="../static/vendor/chart.js/Chart.min.js"></script>
 
   <!-- Page level custom scripts -->
-  <script src="../static/js/demo/chart-area-demo.js"></script>
-  <script src="../static/js/demo/chart-pie-demo.js"></script>
+
 </body>
 
 </html>
