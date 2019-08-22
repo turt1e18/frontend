@@ -170,6 +170,7 @@
                 url:'http://localhost:5000/tutorInfo',
                 method:'POST',
                 dataType:'json',
+                async:false,
                 data:{
                   class_id : class_id
                 }
@@ -503,11 +504,10 @@
                         data:{class_id:1},
                         })
                         .done(function(){
-                          var length = Object.keys(json['data']).length;
                           var datas = [];
-                          for(var num = 0; num < length; num++){
-                             datas.push(`${json['data'][num]}`);
-                          }
+                          datas.push(`${json['pass'][0]}`);
+                          datas.push(`${json['data'][0]}`);
+                          datas.push(`${json['fail'][0]}`);
                         var ctx = document.getElementById("myPieChart");
                         var myPieChart = new Chart(ctx, {
                           type: 'doughnut',
